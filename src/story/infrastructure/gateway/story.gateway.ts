@@ -15,7 +15,6 @@ import { StoryMapper } from 'src/story/application/mapper/story.mapper';
   cors: {
     origin: '*',
   },
-  transports: ['websocket'],
 })
 export class StoryGateway {
   private mapper: StoryMapper;
