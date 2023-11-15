@@ -33,6 +33,6 @@ export class StoryGateway {
     @MessageBody() chatMessage: { sender: string; message: string },
   ): Promise<void> {
     console.log(chatMessage);
-    this.server.emit('responseMessage', chatMessage);
+    this.server.emit('responseMessage', { user: 'phone2', ...chatMessage });
   }
 }
