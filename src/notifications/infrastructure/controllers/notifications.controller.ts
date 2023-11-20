@@ -11,12 +11,11 @@ export class NotificationsController {
   }
   @Post('subscribe')
   async subscribe(@Body() subscription: any): Promise<void> {
-    console.log(subscription);
     // Almacena la suscripción en tu base de datos o donde prefieras
     // Normalmente se utilizaría una base de datos para manejar múltiples suscripciones
     // Aquí se almacena en una variable de clase solo con fines de demostración
     const currentSubs = NotificationsService.subscriptions;
-    if (currentSubs.find((sub) => sub.auth === subscription.auth) === -1) {
+    if (!currentSubs.find((sub) => sub.keys.auth === subscription.keys.auth)) {
       NotificationsService.subscriptions.push(subscription);
     }
   }
