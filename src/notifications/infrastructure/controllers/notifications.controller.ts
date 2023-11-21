@@ -15,12 +15,14 @@ export class NotificationsController {
     // Normalmente se utilizaría una base de datos para manejar múltiples suscripciones
     // Aquí se almacena en una variable de clase solo con fines de demostración
     const currentSubs = NotificationsService.subscriptions;
-    const finded = currentSubs.findIndex(
+    const finded = (currentSubs || []).findIndex(
       (sub) => sub.keys.auth === subscription.keys.auth,
     );
-    if (finded !== -1) {
+    if (finded === -1) {
       NotificationsService.subscriptions.push(subscription);
-    } else if (finded['body'].includes('has unsubscribed or expired')) {
+    } else if (
+      (currentSubs[finded]?.body || '')?.includes('has unsubscribed or expired')
+    ) {
       NotificationsService.subscriptions.splice(finded, 1);
       NotificationsService.subscriptions.push(subscription);
     }
